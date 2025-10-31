@@ -1,10 +1,14 @@
 import java.util.List;
+import java.util.Stack;
 import java.util.ArrayList;
 
 public class EmpresaTransporte {
     // Listas - atributos
     private List<Vehiculo> vehiculos;
     private List<Conductor> conductores;
+
+    // Pila de viajes
+    private Stack<Viaje> historialViajes = new Stack<>();
 
     // Constructor
     public EmpresaTransporte() {
@@ -49,6 +53,30 @@ public class EmpresaTransporte {
         return resultados;
     }
 
+    public List<Vehiculo> eliminarVehiculoPlaca(String placaBuscar) {
+        List<Vehiculo> resultados = new ArrayList<>();
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.buscarPlaca(placaBuscar)) {
+                if (vehiculo.getPlaca().toLowerCase().contains(placaBuscar.toLowerCase())) {
+                    resultados.remove(vehiculo);
+                }
+            }
+        }
+        return resultados;
+    }
+
+    public List<Conductor> eliminarConductorNombre(String nombreBuscar) {
+        List<Conductor> resultados = new ArrayList<>();
+        for (Conductor conductor : conductores) {
+            if (conductor.buscarNombre(nombreBuscar)) {
+                if (conductor.getNombre().toLowerCase().contains(nombreBuscar.toLowerCase())) {
+                    resultados.remove(conductor);
+                }
+            }
+        }
+        return resultados;
+    }
+
     public List<Vehiculo> listarCapacidadMinimo(int capacidadMinima) {
         List<Vehiculo> resultados = new ArrayList<>();
         for (Vehiculo vehiculo : vehiculos) {
@@ -84,6 +112,27 @@ public class EmpresaTransporte {
         }
         double promedio = contadorCapacidad / totalVehiculos();
         return promedio;
+    }
+
+    // METODOS VIAJE
+
+    public void registrarViaje(Viaje viaje) {
+        historialViajes.push(viaje);
+        System.out.println("Viaje creado");
+    }
+
+    public void verUltimoViaje() {
+        System.out.println(historialViajes.peek());
+    }
+
+    public void deshacerUltimoViaje() {
+        System.out.println(historialViajes.pop());
+    }
+
+    public void mostrarHistorial() {
+        for (Viaje viaje : historialViajes) {
+            System.out.println(viaje);
+        }
     }
 
 }
