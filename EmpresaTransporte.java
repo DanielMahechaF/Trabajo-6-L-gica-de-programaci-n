@@ -32,7 +32,8 @@ public class EmpresaTransporte {
 
     public List<Vehiculo> buscarVehiculoPlaca(String placaBuscar) {
         List<Vehiculo> resultados = new ArrayList<>();
-        if (placaBuscar == null) return resultados;
+        if (placaBuscar == null)
+            return resultados;
         String target = placaBuscar.toLowerCase();
         for (Vehiculo vehiculo : vehiculos) {
             String placa = vehiculo.getPlaca();
@@ -45,7 +46,8 @@ public class EmpresaTransporte {
 
     public List<Conductor> buscarConductorNombre(String nombreBuscar) {
         List<Conductor> resultados = new ArrayList<>();
-        if (nombreBuscar == null) return resultados;
+        if (nombreBuscar == null)
+            return resultados;
         String target = nombreBuscar.toLowerCase();
         for (Conductor conductor : conductores) {
             String nombre = conductor.getNombre();
@@ -58,7 +60,8 @@ public class EmpresaTransporte {
 
     public List<Vehiculo> eliminarVehiculoPlaca(String placaBuscar) {
         List<Vehiculo> eliminados = new ArrayList<>();
-        if (placaBuscar == null) return eliminados;
+        if (placaBuscar == null)
+            return eliminados;
         String target = placaBuscar.toLowerCase();
         Iterator<Vehiculo> it = vehiculos.iterator();
         while (it.hasNext()) {
@@ -74,7 +77,8 @@ public class EmpresaTransporte {
 
     public List<Conductor> eliminarConductorNombre(String nombreBuscar) {
         List<Conductor> eliminados = new ArrayList<>();
-        if (nombreBuscar == null) return eliminados;
+        if (nombreBuscar == null)
+            return eliminados;
         String target = nombreBuscar.toLowerCase();
         Iterator<Conductor> it = conductores.iterator();
         while (it.hasNext()) {
@@ -91,8 +95,8 @@ public class EmpresaTransporte {
     public List<Vehiculo> listarModelo(int modelo) {
         List<Vehiculo> resultados = new ArrayList<>();
         for (Vehiculo vehiculo : vehiculos) {
-            String modeloVehiculo = vehiculo.getModelo();
-            if (modeloVehiculo != null && modeloVehiculo.equals(String.valueOf(modelo))) {
+            int modeloVehiculo = vehiculo.getModelo();
+            if (modeloVehiculo == 0 && modeloVehiculo == modelo) {
                 resultados.add(vehiculo);
             }
         }
@@ -104,16 +108,20 @@ public class EmpresaTransporte {
     }
 
     public double promedioCapacidad() {
-        if (vehiculos.isEmpty()) return 0.0;
+        if (vehiculos.isEmpty())
+            return 0.0;
         int suma = 0;
-        for (Vehiculo v : vehiculos) suma += v.getCapacidad();
+        for (Vehiculo v : vehiculos)
+            suma += v.getCapacidad();
         return (double) suma / vehiculos.size();
     }
-    // Metodos para mostrar listas 
-    public List<Vehiculo> getVehiculos(){
+
+    // Metodos para mostrar listas
+    public List<Vehiculo> getVehiculos() {
         return new ArrayList<>(vehiculos);
     }
-    public List<Conductor> getConductores(){
+
+    public List<Conductor> getConductores() {
         return new ArrayList<>(conductores);
     }
 
@@ -125,16 +133,29 @@ public class EmpresaTransporte {
     }
 
     public void verUltimoViaje() {
-        System.out.println(historialViajes.peek());
+        if (historialViajes.isEmpty()) {
+            System.out.println("No hay viajes!");
+        } else {
+            System.out.println(historialViajes.peek());
+        }
     }
 
     public void deshacerUltimoViaje() {
-        System.out.println(historialViajes.pop());
+        if (historialViajes.isEmpty()) {
+            System.out.println("No hay viajes!");
+        } else {
+            System.out.println(historialViajes.pop());
+            System.out.println("Último viaje eliminado! ");
+        }
     }
 
     public void mostrarHistorial() {
-        for (Viaje viaje : historialViajes) {
-            System.out.println(viaje);
+        if (historialViajes.isEmpty()) {
+            System.out.println("No hay viajes!");
+        } else {
+            for (Viaje viaje : historialViajes) {
+                System.out.println(viaje);
+            }
         }
     }
 

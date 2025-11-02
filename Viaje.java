@@ -5,6 +5,10 @@ public class Viaje {
     private double kilometros;
 
     // Constructores
+    public Viaje() {
+
+    }
+
     public Viaje(String destino, String conductor, String vehiculo, double kilometros) {
         this.destino = destino;
         this.conductor = conductor;
