@@ -32,7 +32,21 @@ public class Conductor {
 
     // METODOS
     public boolean buscarNombre(String nombreBuscar) {
-        return this.nombre == nombreBuscar;
+        return this.nombre != null && this.nombre.equals(nombreBuscar);
     }
+
+    public boolean buscarLicencia (String licenciaBuscar){
+        return this.licencia != null && this.licencia.equals(licenciaBuscar);
+    }
+    // To String
+    @Override
+    public String toString() {
+        return "Conductor [nombre = " + getNombre() + ", licencia =" + getLicencia() + "]";
+    }
+
+    public static boolean contains(String nombreElim) {
+        return nombreElim != null && !nombreElim.trim().isEmpty();
+    }
+    
 
 }

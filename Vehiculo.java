@@ -1,10 +1,10 @@
 public class Vehiculo {
     public String placa;
-    public String modelo;
+    public int modelo;
     public int capacidad;
 
     // Constructor
-    public Vehiculo(String placa, String modelo, int capacidad) {
+    public Vehiculo(String placa, int modelo, int capacidad) {
         this.placa = placa;
         this.modelo = modelo;
         this.capacidad = capacidad;
@@ -19,7 +19,7 @@ public class Vehiculo {
         return placa;
     }
 
-    public String getModelo() {
+    public int getModelo() {
         return modelo;
     }
 
@@ -32,7 +32,7 @@ public class Vehiculo {
         this.placa = placa;
     }
 
-    public void setModelo(String modelo) {
+    public void setModelo(int modelo) {
         this.modelo = modelo;
     }
 
@@ -42,7 +42,25 @@ public class Vehiculo {
 
     // Metodo
     public boolean buscarPlaca(String placaBuscar) {
-        return this.placa == placaBuscar;
+        return this.placa != null && this.placa.equals(placaBuscar);
     }
+    
+    public boolean buscarCapacidad(int capacidadBuscar){
+        return this.capacidad == capacidadBuscar;
+    }
+
+    public boolean buscarModelo (int modeloBuscar){
+        return this.modelo == modeloBuscar;
+    }
+    // To String
+    @Override
+    public String toString() {
+        return "Vehiculo [ placa= " + getPlaca() + ", modelo= " + getModelo() + ", capacidad= " + getCapacidad() +  "]";
+    }
+
+     public static boolean contains(String placaElim) {
+        return placaElim != null && !placaElim.trim().isEmpty();
+    }
+
 
 }

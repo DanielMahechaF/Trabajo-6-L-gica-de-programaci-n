@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class EmpresaTransporte {
     // Listas - atributos
@@ -31,11 +32,12 @@ public class EmpresaTransporte {
 
     public List<Vehiculo> buscarVehiculoPlaca(String placaBuscar) {
         List<Vehiculo> resultados = new ArrayList<>();
+        if (placaBuscar == null) return resultados;
+        String target = placaBuscar.toLowerCase();
         for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo.buscarPlaca(placaBuscar)) {
-                if (vehiculo.getPlaca().toLowerCase().contains(placaBuscar.toLowerCase())) {
-                    resultados.add(vehiculo);
-                }
+            String placa = vehiculo.getPlaca();
+            if (placa != null && placa.toLowerCase().contains(target)) {
+                resultados.add(vehiculo);
             }
         }
         return resultados;
@@ -43,54 +45,54 @@ public class EmpresaTransporte {
 
     public List<Conductor> buscarConductorNombre(String nombreBuscar) {
         List<Conductor> resultados = new ArrayList<>();
+        if (nombreBuscar == null) return resultados;
+        String target = nombreBuscar.toLowerCase();
         for (Conductor conductor : conductores) {
-            if (conductor.buscarNombre(nombreBuscar)) {
-                if (conductor.getNombre().toLowerCase().contains(nombreBuscar.toLowerCase())) {
-                    resultados.add(conductor);
-                }
+            String nombre = conductor.getNombre();
+            if (nombre != null && nombre.toLowerCase().contains(target)) {
+                resultados.add(conductor);
             }
         }
         return resultados;
     }
 
     public List<Vehiculo> eliminarVehiculoPlaca(String placaBuscar) {
-        List<Vehiculo> resultados = new ArrayList<>();
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo.buscarPlaca(placaBuscar)) {
-                if (vehiculo.getPlaca().toLowerCase().contains(placaBuscar.toLowerCase())) {
-                    resultados.remove(vehiculo);
-                }
+        List<Vehiculo> eliminados = new ArrayList<>();
+        if (placaBuscar == null) return eliminados;
+        String target = placaBuscar.toLowerCase();
+        Iterator<Vehiculo> it = vehiculos.iterator();
+        while (it.hasNext()) {
+            Vehiculo v = it.next();
+            String placa = v.getPlaca();
+            if (placa != null && placa.toLowerCase().contains(target)) {
+                eliminados.add(v);
+                it.remove();
             }
         }
-        return resultados;
+        return eliminados;
     }
 
     public List<Conductor> eliminarConductorNombre(String nombreBuscar) {
-        List<Conductor> resultados = new ArrayList<>();
-        for (Conductor conductor : conductores) {
-            if (conductor.buscarNombre(nombreBuscar)) {
-                if (conductor.getNombre().toLowerCase().contains(nombreBuscar.toLowerCase())) {
-                    resultados.remove(conductor);
-                }
+        List<Conductor> eliminados = new ArrayList<>();
+        if (nombreBuscar == null) return eliminados;
+        String target = nombreBuscar.toLowerCase();
+        Iterator<Conductor> it = conductores.iterator();
+        while (it.hasNext()) {
+            Conductor c = it.next();
+            String nombre = c.getNombre();
+            if (nombre != null && nombre.toLowerCase().contains(target)) {
+                eliminados.add(c);
+                it.remove();
             }
         }
-        return resultados;
-    }
-
-    public List<Vehiculo> listarCapacidadMinimo(int capacidadMinima) {
-        List<Vehiculo> resultados = new ArrayList<>();
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo.getCapacidad() >= capacidadMinima) {
-                resultados.add(vehiculo);
-            }
-        }
-        return resultados;
+        return eliminados;
     }
 
     public List<Vehiculo> listarModelo(int modelo) {
         List<Vehiculo> resultados = new ArrayList<>();
         for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo.getCapacidad() >= modelo) {
+            String modeloVehiculo = vehiculo.getModelo();
+            if (modeloVehiculo != null && modeloVehiculo.equals(String.valueOf(modelo))) {
                 resultados.add(vehiculo);
             }
         }
@@ -98,20 +100,21 @@ public class EmpresaTransporte {
     }
 
     public int totalVehiculos() {
-        int contadorVehiculos = 0;
-        for (Vehiculo vehiculo : vehiculos) {
-            contadorVehiculos += 1;
-        }
-        return contadorVehiculos;
+        return vehiculos.size();
     }
 
     public double promedioCapacidad() {
-        int contadorCapacidad = 0;
-        for (Vehiculo vehiculo : vehiculos) {
-            contadorCapacidad += vehiculo.getCapacidad();
-        }
-        double promedio = contadorCapacidad / totalVehiculos();
-        return promedio;
+        if (vehiculos.isEmpty()) return 0.0;
+        int suma = 0;
+        for (Vehiculo v : vehiculos) suma += v.getCapacidad();
+        return (double) suma / vehiculos.size();
+    }
+    // Metodos para mostrar listas 
+    public List<Vehiculo> getVehiculos(){
+        return new ArrayList<>(vehiculos);
+    }
+    public List<Conductor> getConductores(){
+        return new ArrayList<>(conductores);
     }
 
     // METODOS VIAJE
