@@ -49,4 +49,9 @@ public class Viaje {
         this.kilometros = kilometros;
     }
 
+    @Override
+    public String toString() {
+        return "Viaje [ destino= " + getDestino() + ", conductor= " + getConductor() + ", vehiculo= " + getVehiculo()
+                + ", kilometros= " + getKilometros() + " ]";
+    }
 }

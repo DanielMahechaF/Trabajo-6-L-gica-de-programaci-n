@@ -5,6 +5,8 @@ public class Main {
 
         Scanner entrada = new Scanner(System.in);
         ViajePrint printViajes = new ViajePrint();
+        ConductorPrint printConductores = new ConductorPrint(printViajes.empresa);
+        VehiculoPrint printVehiculos = new VehiculoPrint(printViajes.empresa);
 
         while (true) {
             System.out.println("\nEmpresa de transporte TransUnisalle🚙🚗🚕🚚");
@@ -29,12 +31,16 @@ public class Main {
 
             switch (opcion) {
                 case "1":
+                    printConductores.mainConductores();
+                    break;
                 case "2":
+                    printVehiculos.mainVehiculos();
+                    break;
                 case "3":
                     printViajes.mainViajes();
                     break;
                 case "0":
-                    System.out.println("\nHasta luego!");
+                    System.out.println("\nHasta luego!\n");
                     return;
             }
 

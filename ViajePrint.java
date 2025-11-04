@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.Scanner;
 
+//CLASE BY KATHERYNN GOMEZ
+
 public class ViajePrint {
     EmpresaTransporte empresa = new EmpresaTransporte();
     Scanner entrada = new Scanner(System.in);

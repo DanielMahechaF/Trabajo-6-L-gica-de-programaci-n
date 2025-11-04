@@ -92,13 +92,20 @@ public class EmpresaTransporte {
         return eliminados;
     }
 
-    public List<Vehiculo> listarModelo(int modelo) {
+    public List<Vehiculo> listarPorModelo(int modeloBuscar) {
         List<Vehiculo> resultados = new ArrayList<>();
         for (Vehiculo vehiculo : vehiculos) {
-            int modeloVehiculo = vehiculo.getModelo();
-            if (modeloVehiculo == 0 && modeloVehiculo == modelo) {
+            if (vehiculo.getModelo() == modeloBuscar)
                 resultados.add(vehiculo);
-            }
+        }
+        return resultados;
+    }
+
+    public List<Vehiculo> listarPorCapacidadMinima(int capacidadMinima) {
+        List<Vehiculo> resultados = new ArrayList<>();
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getCapacidad() >= capacidadMinima)
+                resultados.add(vehiculo);
         }
         return resultados;
     }
@@ -136,7 +143,7 @@ public class EmpresaTransporte {
         if (historialViajes.isEmpty()) {
             System.out.println("No hay viajes!");
         } else {
-            System.out.println(historialViajes.peek());
+            System.out.println(historialViajes.peek().toString());
         }
     }
 
@@ -144,7 +151,7 @@ public class EmpresaTransporte {
         if (historialViajes.isEmpty()) {
             System.out.println("No hay viajes!");
         } else {
-            System.out.println(historialViajes.pop());
+            System.out.println(historialViajes.pop().toString());
             System.out.println("Último viaje eliminado! ");
         }
     }
@@ -154,7 +161,7 @@ public class EmpresaTransporte {
             System.out.println("No hay viajes!");
         } else {
             for (Viaje viaje : historialViajes) {
-                System.out.println(viaje);
+                System.out.println(viaje.toString());
             }
         }
     }
