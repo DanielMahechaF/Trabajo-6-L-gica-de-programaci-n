@@ -1,7 +1,10 @@
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class EmpresaTransporte {
     // Listas - atributos
@@ -10,6 +13,12 @@ public class EmpresaTransporte {
 
     // Pila de viajes
     private Stack<Viaje> historialViajes = new Stack<>();
+
+    // INGRESAR COLA
+    private Queue<SolicitudViaje> solicitudes = new LinkedList<>();
+
+    // INGRESAR MAPAS (HASHMAPS)
+    private HashMap<String, Vehiculo> mapaVehiculos = new HashMap<>();
 
     // Constructor
     public EmpresaTransporte() {
@@ -164,6 +173,62 @@ public class EmpresaTransporte {
                 System.out.println(viaje.toString());
             }
         }
+    }
+
+    // Implementar metodos COLA
+
+    public void agregarSolicitud(SolicitudViaje solicitud) {
+        solicitudes.add(solicitud);
+        System.out.println("\nSolicitud agregada.");
+    }
+
+    public SolicitudViaje atenderSolicitud() {
+        System.out.println("\nAtendiendo solicitud de viaje...\n" + solicitudes.peek().toString());
+
+        return solicitudes.poll();
+    }
+
+    public void mostrarSolicitudesPendientes() {
+        int contador = 1;
+        if (solicitudes.isEmpty()) {
+            System.out.println("No hay solicitudes pendientes.");
+        } else {
+            System.out.println("Solicitudes pendientes: ");
+            for (SolicitudViaje solicitud : solicitudes) {
+                System.out.println("\nSolicitud " + contador + ":\n" + solicitud.toString());
+                contador++;
+            }
+        }
+    }
+
+    // METODOS MAPAS
+    public void registrarVehiculoMAP(Vehiculo vehiculo) {
+        mapaVehiculos.put(vehiculo.getPlaca(), vehiculo);
+    }
+
+    public Vehiculo buscarVehiculoMAP(String placa) {
+        Vehiculo vehiculo = new Vehiculo();
+        if (mapaVehiculos.containsKey(placa)) {
+            vehiculo = mapaVehiculos.get(placa);
+        } else {
+            System.out.println("No se encontró ningún vehículo con esa placa.");
+        }
+        return vehiculo;
+    }
+
+    public void eliminarVehiculoMAP(String placa) {
+        if (mapaVehiculos.containsKey(placa)) {
+            System.out.println("\nEliminando vehículo con placa: " + placa);
+            mapaVehiculos.remove(placa);
+            System.out.println("\nVehículo eliminado.");
+        } else {
+            System.out.println("\nNo se encontró ningún vehículo con esa placa.");
+        }
+    }
+
+    public void mostrarVehiculosMAP() {
+        System.out.println("\nLista de vehículos en el mapa:");
+        System.out.println(mapaVehiculos);
     }
 
 }
